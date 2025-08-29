@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.a4f2c6d7.css",
-    "main.js": "/static/js/main.add8202c.js",
-    "static/js/453.f0e03184.chunk.js": "/static/js/453.f0e03184.chunk.js",
-    "index.html": "/index.html",
-    "main.a4f2c6d7.css.map": "/static/css/main.a4f2c6d7.css.map",
-    "main.add8202c.js.map": "/static/js/main.add8202c.js.map",
-    "453.f0e03184.chunk.js.map": "/static/js/453.f0e03184.chunk.js.map"
+    "main.css": "/aresourcepoolanydesk/static/css/main.a4f2c6d7.css",
+    "main.js": "/aresourcepoolanydesk/static/js/main.8a7e0788.js",
+    "static/js/453.f0e03184.chunk.js": "/aresourcepoolanydesk/static/js/453.f0e03184.chunk.js",
+    "index.html": "/aresourcepoolanydesk/index.html",
+    "main.a4f2c6d7.css.map": "/aresourcepoolanydesk/static/css/main.a4f2c6d7.css.map",
+    "main.8a7e0788.js.map": "/aresourcepoolanydesk/static/js/main.8a7e0788.js.map",
+    "453.f0e03184.chunk.js.map": "/aresourcepoolanydesk/static/js/453.f0e03184.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a4f2c6d7.css",
-    "static/js/main.add8202c.js"
+    "static/js/main.8a7e0788.js"
   ]
 }
