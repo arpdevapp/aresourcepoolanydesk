@@ -94,7 +94,7 @@
   letter-spacing: 1px;
 }
 
-.share-btn {
+.share-btn, .view-btn {
   background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
 }

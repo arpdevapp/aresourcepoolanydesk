@@ -1,9 +1,7 @@
 // WebSocket service for real-time communication
 
-// Use WebSocket Secure (WSS) for production HTTPS
-const SOCKET_URL = process.env.NODE_ENV === 'production' 
-  ? 'wss://your-server-domain.com:3000'  // Replace with your actual server domain
-  : 'ws://192.168.1.7:3000';             // Local development
+// For testing, always use local server
+const SOCKET_URL = 'ws://192.168.1.7:3000';
 
 // Create WebSocket connection
 const socket = new WebSocket(SOCKET_URL);

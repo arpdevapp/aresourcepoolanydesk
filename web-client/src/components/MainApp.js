@@ -44,6 +44,22 @@ const MainApp = ({ username, onLogout }) => {
     endCall();
   };
 
+  const handleViewRemote = () => {
+    if (!targetUser.trim()) {
+      alert('Please enter a target username');
+      return;
+    }
+    
+    try {
+      // Request to view the target user's screen
+      callUser(targetUser);
+      setConnectionStatus('connecting');
+    } catch (error) {
+      console.error('Error requesting remote view:', error);
+      alert('Failed to request remote view');
+    }
+  };
+
   const handleAcceptCall = () => {
     acceptCall();
     setConnectionStatus('connected');
@@ -76,13 +92,22 @@ const MainApp = ({ username, onLogout }) => {
 
           <div className="button-group">
             {!isSharing ? (
-              <button 
-                onClick={handleStartSharing}
-                className="share-btn"
-                disabled={!targetUser.trim()}
-              >
-                Start Screen Share
-              </button>
+              <>
+                <button 
+                  onClick={handleStartSharing}
+                  className="share-btn"
+                  disabled={!targetUser.trim()}
+                >
+                  Start Screen Share
+                </button>
+                <button 
+                  onClick={handleViewRemote}
+                  className="view-btn"
+                  disabled={!targetUser.trim()}
+                >
+                  View Remote Screen
+                </button>
+              </>
             ) : (
               <button 
                 onClick={handleStopSharing}
