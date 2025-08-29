@@ -6,6 +6,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.aresourcepool.aresourcepoolanydesk.repository.MainRepository
 import com.aresourcepool.aresourcepoolanydesk.R
@@ -46,7 +47,9 @@ class WebrtcService : Service(), MainRepository.Listener {
             when (intent.action) {
                 "StartIntent" -> {
                     this.username = intent.getStringExtra("username").toString()
+                    Log.d("WebrtcService", "Starting service for user: $username")
                     surfaceView?.let { surface ->
+                        Log.d("WebrtcService", "SurfaceView available, initializing repository...")
                         mainRepository.init(username, surface)
                     } ?: run {
                         android.util.Log.e("WebrtcService", "surfaceView is null, cannot initialize WebRTC")

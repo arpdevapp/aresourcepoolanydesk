@@ -26,15 +26,26 @@ class MainRepository @Inject constructor(
     var listener: Listener? = null
 
     fun init(username: String, surfaceView: SurfaceViewRenderer) {
+        Log.d("MainRepository", "=== MainRepository.init() called ===")
+        Log.d("MainRepository", "Username: $username")
+        Log.d("MainRepository", "SurfaceView: $surfaceView")
+        Log.d("MainRepository", "SocketClient: $socketClient")
+        Log.d("MainRepository", "WebrtcClient: $webrtcClient")
+        
         this.username = username
         this.surfaceView = surfaceView
+        Log.d("MainRepository", "Calling initSocket()...")
         initSocket()
+        Log.d("MainRepository", "Calling initWebrtcClient()...")
         initWebrtcClient()
-
+        Log.d("MainRepository", "Repository initialization complete")
     }
 
     private fun initSocket() {
+        Log.d("MainRepository", "Initializing socket connection...")
+        Log.d("MainRepository", "SocketClient instance: $socketClient")
         socketClient.listener = this
+        socketClient.testConnection() // Test connection status
         socketClient.init(username)
     }
 
