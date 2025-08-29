@@ -54,7 +54,7 @@ export const useWebRTC = (username, localVideoRef, remoteVideoRef) => {
       // Clean up message handler
       setMessageHandler(null);
     };
-  }, []);
+  }, []); // Remove dependencies to avoid the initialization error
 
   const createPeerConnection = () => {
     const configuration = {
