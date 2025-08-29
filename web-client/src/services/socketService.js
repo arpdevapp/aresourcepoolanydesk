@@ -1,10 +1,14 @@
 // WebSocket service for real-time communication
 
-const SOCKET_URL = 'ws://192.168.1.7:3000';
+// Use WebSocket Secure (WSS) for production HTTPS
+const SOCKET_URL = process.env.NODE_ENV === 'production' 
+  ? 'wss://your-server-domain.com:3000'  // Replace with your actual server domain
+  : 'ws://192.168.1.7:3000';             // Local development
 
 // Create WebSocket connection
 const socket = new WebSocket(SOCKET_URL);
 
+// WebSocket event handlers
 socket.onopen = () => {
   console.log('✅ WebSocket connected successfully');
 };
@@ -15,6 +19,19 @@ socket.onclose = () => {
 
 socket.onerror = (error) => {
   console.error('❌ WebSocket error:', error);
+};
+
+// Message handler - will be set by components
+let messageHandler = null;
+
+// Set message handler
+export const setMessageHandler = (handler) => {
+  messageHandler = handler;
+  socket.onmessage = (event) => {
+    if (messageHandler) {
+      messageHandler(event);
+    }
+  };
 };
 
 // Helper function to send messages

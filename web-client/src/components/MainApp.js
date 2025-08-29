@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './MainApp.css';
-import { socket } from '../services/socketService';
 import { useWebRTC } from '../hooks/useWebRTC';
 
 const MainApp = ({ username, onLogout }) => {
@@ -21,26 +20,7 @@ const MainApp = ({ username, onLogout }) => {
     endCall
   } = useWebRTC(username, localVideoRef, remoteVideoRef);
 
-  useEffect(() => {
-    // Socket event listeners
-    socket.on('connectionRequest', (data) => {
-      setNotification({
-        type: 'connection',
-        from: data.username,
-        message: `${data.username} is requesting to connect`
-      });
-    });
-
-    socket.on('callEnded', () => {
-      setConnectionStatus('disconnected');
-      setNotification(null);
-    });
-
-    return () => {
-      socket.off('connectionRequest');
-      socket.off('callEnded');
-    };
-  }, []);
+  // Connection status and notifications are now handled by the useWebRTC hook
 
   const handleStartSharing = async () => {
     if (!targetUser.trim()) {

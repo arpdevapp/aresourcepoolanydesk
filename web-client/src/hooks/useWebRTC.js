@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { socket, sendSignIn, sendStartStreaming, sendOffer, sendAnswer, sendIceCandidates, sendEndCall } from '../services/socketService';
+import { setMessageHandler, sendSignIn, sendStartStreaming, sendOffer, sendAnswer, sendIceCandidates, sendEndCall } from '../services/socketService';
 
 export const useWebRTC = (username, localVideoRef, remoteVideoRef) => {
   const [isConnected, setIsConnected] = useState(false);
@@ -17,7 +17,7 @@ export const useWebRTC = (username, localVideoRef, remoteVideoRef) => {
   }, [username]);
 
   useEffect(() => {
-    // Socket event listeners
+    // Set up message handler
     const handleMessage = (event) => {
       try {
         const data = JSON.parse(event.data);
@@ -47,10 +47,12 @@ export const useWebRTC = (username, localVideoRef, remoteVideoRef) => {
       }
     };
 
-    socket.addEventListener('message', handleMessage);
+    // Set the message handler
+    setMessageHandler(handleMessage);
 
     return () => {
-      socket.removeEventListener('message', handleMessage);
+      // Clean up message handler
+      setMessageHandler(null);
     };
   }, []);
 
@@ -145,6 +147,7 @@ export const useWebRTC = (username, localVideoRef, remoteVideoRef) => {
   const handleConnectionRequest = (data) => {
     console.log('Connection request from:', data.username);
     // This will be handled by the UI component
+    // You can add a callback here if needed
   };
 
   const handleOffer = async (data) => {
