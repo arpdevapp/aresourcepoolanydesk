@@ -1,7 +1,7 @@
 // WebSocket service for real-time communication
 
 // For testing, always use local server
-const SOCKET_URL = 'ws://192.168.1.7:3000';
+const SOCKET_URL = 'ws://192.168.1.9:3000';
 
 // Create WebSocket connection
 const socket = new WebSocket(SOCKET_URL);

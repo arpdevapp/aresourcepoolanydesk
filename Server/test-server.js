@@ -37,5 +37,5 @@ client.on('connect', function(connection) {
 });
 
 // Connect to the server
-console.log('🔌 Attempting to connect to ws://192.168.1.7:3000...');
-client.connect('ws://192.168.1.7:3000');
+console.log('🔌 Attempting to connect to ws://192.168.1.9:3000...');
+client.connect('ws://192.168.1.9:3000');

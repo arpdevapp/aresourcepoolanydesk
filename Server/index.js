@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
 })
 
 // Get the actual IP address the server is listening on
-const serverIP = '192.168.1.7';
+const serverIP = '192.168.1.9';
 const serverPort = 3000;
 
 server.listen(serverPort, serverIP, () => {

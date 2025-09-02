@@ -12,7 +12,7 @@ object ServerConfig {
 
     
     // Server configurations
-    private const val CURRENT_SERVER = "ws://192.168.1.7:3000" // Your current IP
+    private const val CURRENT_SERVER = "ws://192.168.1.9:3000" // Your current IP
     private const val PRODUCTION_SERVER = "wss://aresourcepool-server.onrender.com" // For future deployment
     
     // Platform identifiers
@@ -41,7 +41,7 @@ object ServerConfig {
      * Get server display name for UI
      */
     fun getServerDisplayName(context: Context): String {
-        return "Current Server (192.168.1.7:3000)"
+        return "Current Server (192.168.1.9:3000)"
     }
     
     /**

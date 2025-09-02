@@ -37,7 +37,7 @@ class SocketClient @Inject constructor(
         Log.d("SocketClient", "Context: $context")
         
         this.username = username
-        Log.d("SocketClient", "Initializing WebSocket connection to ws://192.168.1.7:3000 for user: $username")
+        Log.d("SocketClient", "Initializing WebSocket connection to ws://192.168.1.9:3000 for user: $username")
         
         // Test network connectivity
         Log.d("SocketClient", "Testing network connectivity...")
@@ -57,7 +57,7 @@ class SocketClient @Inject constructor(
         webSocket?.close()
         
         Log.d("SocketClient", "Creating new WebSocket client...")
-        webSocket= object : WebSocketClient(URI("ws://192.168.1.7:3000")){
+        webSocket= object : WebSocketClient(URI("ws://192.168.1.9:3000")){
             init {
                 this.connectionLostTimeout = 10 // 10 seconds timeout
             }
@@ -166,7 +166,7 @@ class SocketClient @Inject constructor(
         // Test direct connection
         Log.d("SocketClient", "Attempting direct connection test...")
         try {
-            val testWebSocket = object : WebSocketClient(URI("ws://192.168.1.7:3000")) {
+            val testWebSocket = object : WebSocketClient(URI("ws://192.168.1.9:3000")) {
                 override fun onOpen(handshakedata: ServerHandshake?) {
                     Log.d("SocketClient", "✅ Direct connection test successful!")
                     this.close()
