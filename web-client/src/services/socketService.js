@@ -1,7 +1,16 @@
 // WebSocket service for real-time communication
 
-// For testing, always use local server
-const SOCKET_URL = 'ws://localhost:3000';
+// Dynamic WebSocket URL based on environment
+const getSocketUrl = () => {
+  // If running on HTTPS (production), use secure WebSocket
+  if (window.location.protocol === 'https:') {
+    return 'wss://aresourcepool-server.onrender.com';
+  }
+  // For local development (HTTP), use local WebSocket
+  return 'ws://localhost:3000';
+};
+
+const SOCKET_URL = getSocketUrl();
 
 // Create WebSocket connection
 const socket = new WebSocket(SOCKET_URL);
