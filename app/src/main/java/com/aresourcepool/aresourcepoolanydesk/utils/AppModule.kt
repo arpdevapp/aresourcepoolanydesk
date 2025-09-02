@@ -1,6 +1,7 @@
 package com.aresourcepool.aresourcepoolanydesk.utils
 
 import android.content.Context
+import com.aresourcepool.aresourcepoolanydesk.service.InputEventReceiver
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -17,5 +18,9 @@ class AppModule {
 
     @Provides
     fun provideGson(): Gson = Gson()
+
+    @Provides
+    fun provideInputEventReceiver(@ApplicationContext context: Context): InputEventReceiver = 
+        InputEventReceiver(context)
 
 }

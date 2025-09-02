@@ -1,12 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './MainApp.css';
 import { useWebRTC } from '../hooks/useWebRTC';
+import { useInputEvents } from '../hooks/useInputEvents';
 
 const MainApp = ({ username, onLogout }) => {
   const [targetUser, setTargetUser] = useState('');
   const [isSharing, setIsSharing] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState('disconnected');
   const [notification, setNotification] = useState(null);
+  const [inputEnabled, setInputEnabled] = useState(false);
   
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
@@ -19,6 +21,12 @@ const MainApp = ({ username, onLogout }) => {
     declineCall,
     endCall
   } = useWebRTC(username, localVideoRef, remoteVideoRef);
+
+  const { 
+    setupInputListeners, 
+    enableInput, 
+    disableInput 
+  } = useInputEvents(username, targetUser, connectionStatus === 'connected');
 
   // Connection status and notifications are now handled by the useWebRTC hook
 
@@ -42,6 +50,18 @@ const MainApp = ({ username, onLogout }) => {
     stopScreenShare();
     setIsSharing(false);
     endCall();
+    disableInput();
+    setInputEnabled(false);
+  };
+
+  const toggleInputControl = () => {
+    if (inputEnabled) {
+      disableInput();
+      setInputEnabled(false);
+    } else {
+      enableInput();
+      setInputEnabled(true);
+    }
   };
 
   const handleViewRemote = () => {
@@ -64,12 +84,23 @@ const MainApp = ({ username, onLogout }) => {
     acceptCall();
     setConnectionStatus('connected');
     setNotification(null);
+    // Enable input events when accepting a call
+    enableInput();
+    setInputEnabled(true);
   };
 
   const handleDeclineCall = () => {
     declineCall();
     setNotification(null);
   };
+
+  // Set up input listeners when remote video is available and connected
+  useEffect(() => {
+    if (remoteVideoRef.current && connectionStatus === 'connected') {
+      const cleanup = setupInputListeners(remoteVideoRef.current);
+      return cleanup;
+    }
+  }, [remoteVideoRef.current, connectionStatus, setupInputListeners]);
 
   return (
     <div className="main-app">
@@ -120,6 +151,21 @@ const MainApp = ({ username, onLogout }) => {
 
           <div className="status">
             <p>Status: <span className={`status-${connectionStatus}`}>{connectionStatus}</span></p>
+            {connectionStatus === 'connected' && (
+              <div className="input-controls">
+                <button 
+                  onClick={toggleInputControl}
+                  className={`input-toggle-btn ${inputEnabled ? 'enabled' : 'disabled'}`}
+                >
+                  {inputEnabled ? 'Disable Input' : 'Enable Input'}
+                </button>
+                <p className="input-status">
+                  Input: <span className={inputEnabled ? 'enabled' : 'disabled'}>
+                    {inputEnabled ? 'Enabled' : 'Disabled'}
+                  </span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
 

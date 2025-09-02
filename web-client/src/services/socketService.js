@@ -1,7 +1,7 @@
 // WebSocket service for real-time communication
 
 // For testing, always use local server
-const SOCKET_URL = 'ws://192.168.1.9:3000';
+const SOCKET_URL = 'ws://localhost:3000';
 
 // Create WebSocket connection
 const socket = new WebSocket(SOCKET_URL);
@@ -97,6 +97,36 @@ export const sendEndCall = (username, target) => {
     username: username,
     target: target,
     data: null
+  });
+};
+
+// Helper function to send TouchEvent message
+export const sendTouchEvent = (username, target, touchData) => {
+  sendMessage({
+    type: 'TouchEvent',
+    username: username,
+    target: target,
+    data: touchData
+  });
+};
+
+// Helper function to send KeyEvent message
+export const sendKeyEvent = (username, target, keyData) => {
+  sendMessage({
+    type: 'KeyEvent',
+    username: username,
+    target: target,
+    data: keyData
+  });
+};
+
+// Helper function to send MouseEvent message
+export const sendMouseEvent = (username, target, mouseData) => {
+  sendMessage({
+    type: 'MouseEvent',
+    username: username,
+    target: target,
+    data: mouseData
   });
 };
 

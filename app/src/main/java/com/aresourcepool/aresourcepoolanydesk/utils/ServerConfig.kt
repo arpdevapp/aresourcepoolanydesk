@@ -12,7 +12,7 @@ object ServerConfig {
 
     
     // Server configurations
-    private const val CURRENT_SERVER = "ws://192.168.1.9:3000" // Your current IP
+    private const val CURRENT_SERVER = "ws://192.168.1.9:3000" // Your computer's IP for Android devices
     private const val PRODUCTION_SERVER = "wss://aresourcepool-server.onrender.com" // For future deployment
     
     // Platform identifiers

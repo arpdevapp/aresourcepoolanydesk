@@ -19,14 +19,18 @@ const server = http.createServer((req, res) => {
 })
 
 // Get the actual IP address the server is listening on
-const serverIP = '192.168.1.9';
+const serverIP = '0.0.0.0'; // Listen on all interfaces
 const serverPort = 3000;
 
 server.listen(serverPort, serverIP, () => {
     console.log('=== WebSocket Server Started ===');
     console.log(`Server is running on port ${serverPort}`);
-    console.log(`Server is accessible at: http://${serverIP}:${serverPort}`);
-    console.log(`WebSocket endpoint: ws://${serverIP}:${serverPort}`);
+    console.log(`Server is accessible at:`);
+    console.log(`  - http://localhost:${serverPort} (for web client)`);
+    console.log(`  - http://192.168.1.9:${serverPort} (for Android devices)`);
+    console.log(`WebSocket endpoints:`);
+    console.log(`  - ws://localhost:${serverPort} (for web client)`);
+    console.log(`  - ws://192.168.1.9:${serverPort} (for Android devices)`);
     console.log('================================');
 })
 
@@ -40,6 +44,9 @@ const Types = {
     Answer: "Answer",
     IceCandidates: "IceCandidates",
     EndCall: "EndCall",
+    TouchEvent: "TouchEvent",
+    KeyEvent: "KeyEvent",
+    MouseEvent: "MouseEvent",
 }
 
 const webSocket = new socket({httpServer: server})
@@ -147,6 +154,48 @@ webSocket.on('request', (req) => {
                             })
                         } else {
                             console.log(`❌ Target user ${data.target} not found for EndCall`);
+                        }
+                        break
+                        
+                    case Types.TouchEvent:
+                        console.log(`👆 TouchEvent from ${data.username} to ${data.target}`);
+                        if (userToReceive) {
+                            sendToConnection(userToReceive.conn, {
+                                type: Types.TouchEvent,
+                                username: data.username,
+                                target: data.target,
+                                data: data.data
+                            })
+                        } else {
+                            console.log(`❌ Target user ${data.target} not found for TouchEvent`);
+                        }
+                        break
+                        
+                    case Types.KeyEvent:
+                        console.log(`⌨️ KeyEvent from ${data.username} to ${data.target}`);
+                        if (userToReceive) {
+                            sendToConnection(userToReceive.conn, {
+                                type: Types.KeyEvent,
+                                username: data.username,
+                                target: data.target,
+                                data: data.data
+                            })
+                        } else {
+                            console.log(`❌ Target user ${data.target} not found for KeyEvent`);
+                        }
+                        break
+                        
+                    case Types.MouseEvent:
+                        console.log(`🖱️ MouseEvent from ${data.username} to ${data.target}`);
+                        if (userToReceive) {
+                            sendToConnection(userToReceive.conn, {
+                                type: Types.MouseEvent,
+                                username: data.username,
+                                target: data.target,
+                                data: data.data
+                            })
+                        } else {
+                            console.log(`❌ Target user ${data.target} not found for MouseEvent`);
                         }
                         break
                         

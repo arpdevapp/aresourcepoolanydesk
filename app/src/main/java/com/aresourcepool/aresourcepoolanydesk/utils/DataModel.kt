@@ -1,7 +1,7 @@
 package com.aresourcepool.aresourcepoolanydesk.utils
 
 enum class DataModelType{
-    SignIn, StartStreaming,EndCall, Offer, Answer, IceCandidates
+    SignIn, StartStreaming,EndCall, Offer, Answer, IceCandidates, TouchEvent, KeyEvent, MouseEvent
 }
 
 
