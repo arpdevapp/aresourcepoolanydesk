@@ -1,17 +1,16 @@
 {
-  "name": "screen-share",
+  "name": "aresourcepool-websocket-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "WebSocket server for AResourcePool AnyDesk",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "test-connection": "node test-connection.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-  "nodemon": "^2.0.21",
-  "websocket": "^1.0.34"
-}
+    "websocket": "^1.0.34"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

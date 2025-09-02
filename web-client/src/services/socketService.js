@@ -2,31 +2,59 @@
 
 // Dynamic WebSocket URL based on environment
 const getSocketUrl = () => {
-  // If running on HTTPS (production), use secure WebSocket
+  // If running on HTTPS (production), use the deployed server
   if (window.location.protocol === 'https:') {
-    return 'wss://aresourcepool-server.onrender.com';
+    return 'wss://aresourcepool-websocket-server.onrender.com';
   }
   // For local development (HTTP), use local WebSocket
   return 'ws://localhost:3000';
 };
 
-const SOCKET_URL = getSocketUrl();
+let socket;
+let reconnectAttempts = 0;
+const maxReconnectAttempts = 3;
 
-// Create WebSocket connection
-const socket = new WebSocket(SOCKET_URL);
-
-// WebSocket event handlers
-socket.onopen = () => {
-  console.log('✅ WebSocket connected successfully');
+const createWebSocketConnection = () => {
+  const SOCKET_URL = getSocketUrl();
+  console.log('🔌 Attempting to connect to:', SOCKET_URL);
+  
+  socket = new WebSocket(SOCKET_URL);
+  return socket;
 };
 
-socket.onclose = () => {
-  console.log('❌ WebSocket connection closed');
+// Setup event handlers for WebSocket
+const setupEventHandlers = () => {
+  socket.onopen = () => {
+    console.log('✅ WebSocket connected successfully');
+    reconnectAttempts = 0; // Reset reconnection attempts on successful connection
+  };
+
+  socket.onclose = () => {
+    console.log('❌ WebSocket connection closed');
+  };
+
+  socket.onerror = (error) => {
+    console.error('❌ WebSocket error:', error);
+    console.log('🔄 Attempting to reconnect...');
+    
+    if (reconnectAttempts < maxReconnectAttempts) {
+      reconnectAttempts++;
+      setTimeout(() => {
+        console.log(`🔄 Reconnection attempt ${reconnectAttempts}/${maxReconnectAttempts}`);
+        socket = createWebSocketConnection();
+        setupEventHandlers();
+      }, 2000 * reconnectAttempts); // Exponential backoff
+    } else {
+      console.error('❌ Max reconnection attempts reached. Please check your server connection.');
+      // Show user-friendly error message
+      alert('Unable to connect to server. Please ensure the server is running and try refreshing the page.');
+    }
+  };
 };
 
-socket.onerror = (error) => {
-  console.error('❌ WebSocket error:', error);
-};
+// Create initial WebSocket connection
+socket = createWebSocketConnection();
+setupEventHandlers();
 
 // Message handler - will be set by components
 let messageHandler = null;
