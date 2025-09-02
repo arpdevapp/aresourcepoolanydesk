@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/aresourcepoolanydesk/static/css/main.6e3ef765.css",
-    "main.js": "/aresourcepoolanydesk/static/js/main.55897b14.js",
+    "main.js": "/aresourcepoolanydesk/static/js/main.ad6db605.js",
     "static/js/453.f0e03184.chunk.js": "/aresourcepoolanydesk/static/js/453.f0e03184.chunk.js",
     "index.html": "/aresourcepoolanydesk/index.html",
     "main.6e3ef765.css.map": "/aresourcepoolanydesk/static/css/main.6e3ef765.css.map",
-    "main.55897b14.js.map": "/aresourcepoolanydesk/static/js/main.55897b14.js.map",
+    "main.ad6db605.js.map": "/aresourcepoolanydesk/static/js/main.ad6db605.js.map",
     "453.f0e03184.chunk.js.map": "/aresourcepoolanydesk/static/js/453.f0e03184.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6e3ef765.css",
-    "static/js/main.55897b14.js"
+    "static/js/main.ad6db605.js"
   ]
 }
